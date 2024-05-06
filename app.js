@@ -56,7 +56,14 @@ passport.deserializeUser(async (id, done) => {
 });
 
 // Routes 
-const indexRoute = require("./routes/index");
-app.use("/", indexRoute);
+const homeRoute = require("./routes/login");
+app.use("/home", homeRoute);
+app.use("/", homeRoute);
+
+const loginRoute = require("./routes/login");
+app.use("/login", loginRoute);
+
+const registerRoute = require("./routes/register");
+app.use("/register", registerRoute);
 
 module.exports = app;
