@@ -4,7 +4,9 @@ const path = require("path");
 const mongoose = require("mongoose");
 const passport = require("passport");
 const session = require("express-session");
+const flash = require("express-flash");
 const LocalStrategy = require("passport-local").Strategy;
+const bcrypt = require("bcrypt");
 
 require("dotenv").config();
 
@@ -25,6 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
 // Initialize passport
+app.use(flash());
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false, 
@@ -36,14 +39,18 @@ app.use(passport.session());
 
 const users = require("./models/user");
 passport.use(new LocalStrategy(async (username, password, done) => { 
-    const user = await users.findOne({username: username});
-    if (user) 
-        if (user.password == password)
-            done(null, user);
-        else 
-            done(null, false, {message: "Incorrect password"}); 
+    try {
+        const user = await users.findOne({username: username});
+        if (user) 
+            if (await bcrypt.compare(password, user.password)) 
+                return done(null, user);
+            else 
+                return done(null, false, {message: "Incorrect password"}); 
 
-    done(null, false, {message: "Incorrect username"});
+        return done(null, false, {message: "Incorrect username"});
+    } catch (error) { 
+        return done(error);
+    }
 }));
 
 passport.serializeUser((user, done) => { 
@@ -56,7 +63,7 @@ passport.deserializeUser(async (id, done) => {
 });
 
 // Routes 
-const homeRoute = require("./routes/login");
+const homeRoute = require("./routes/home");
 app.use("/home", homeRoute);
 app.use("/", homeRoute);
 
