@@ -73,4 +73,7 @@ app.use("/login", loginRoute);
 const registerRoute = require("./routes/register");
 app.use("/register", registerRoute);
 
+const newMessageRoute = require("./routes/newMessage");
+app.use("/new-message", newMessageRoute);
+
 module.exports = app;

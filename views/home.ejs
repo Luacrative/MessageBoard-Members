@@ -6,6 +6,15 @@
     <title>Message Board | Home</title>
 </head>
 <body>
-    
+    <h1>Messages</h1>
+    <a href="/new-message">New message</a>
+    <ul>
+        <% messages.forEach( message =>{ %>
+            <li>
+                <h2><%=message.title%></h2>
+                <p><%=message.content%></p>
+            </li>
+        <% }); %>
+    </ul>
 </body>
 </html>
