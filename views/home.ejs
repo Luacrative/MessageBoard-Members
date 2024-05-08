@@ -11,8 +11,10 @@
     <ul>
         <% messages.forEach( message =>{ %>
             <li>
-                <h2><%=message.title%></h2>
-                <p><%=message.content%></p>
+                <h2><a href="messages/<%=message.id%>"><%=message.title%></a></h2>
+                <p><%=message.content.substr(0, 200)%></p>
+                <p><%=message.date.toString().substr(0, 15)%></p>
+                <p><%=message.replies.length%> replies</p>
             </li>
         <% }); %>
     </ul>
