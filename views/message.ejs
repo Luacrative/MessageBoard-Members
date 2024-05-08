@@ -6,6 +6,8 @@
     <title>Message Board | <%=message.title%></title>
 </head>
 <body>
+    <%- include("header") -%>
+    
     <h1><%=message.title%></h1>
     <h3><%=message.date.toString().substr(0, 15)%></h3>
     <p><%=message.content%></p>
