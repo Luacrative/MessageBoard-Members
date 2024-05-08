@@ -5,7 +5,7 @@ const message = new mongoose.Schema({
     title: {type: String, required: true},
     content: {type: String, required: true},
     date: {type: Date, required: true},
-    replies: [{type: mongoose.Schema.ObjectId}]
+    replies: [{type: mongoose.Schema.ObjectId, ref: "Reply"}]
 });
 
 module.exports = mongoose.model("Message", message); 

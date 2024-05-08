@@ -76,4 +76,7 @@ app.use("/register", registerRoute);
 const newMessageRoute = require("./routes/newMessage");
 app.use("/new-message", newMessageRoute);
 
+const messageRoute = require("./routes/message");
+app.use("/messages", messageRoute);
+
 module.exports = app;

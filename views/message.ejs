@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message Board | <%=message.title%></title>
+</head>
+<body>
+    <h1><%=message.title%></h1>
+    <h3><%=message.date.toString().substr(0, 15)%></h3>
+    <p><%=message.content%></p>
+
+    <form method="POST" action="/messages/reply/<%=message.id%>">
+        <div>
+            <h2>Replying as <%=user.username%></h2>
+            <label for="content">Message</label>
+            <br>
+            <textarea id="content" name="content"></textarea>
+        </div>
+        <button type="submit">Post reply</button>
+    </form>
+
+    <h2><%=message.replies.length%> replies</h2>
+    <ul>
+        <% message.replies.forEach( reply =>{ %>
+            <li>
+                <h3><%=reply.user.username%></a></h3>
+                <p><%=reply.content%></p>
+                <p><%=reply.date.toString().substr(0, 15)%></p>
+            </li>
+        <% }); %>
+    </ul>
+</body>
+</html>
